@@ -1,26 +1,38 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
+// userSchema is for creating a company/owner
+// aswell as the staff members for the companies
 const userSchema = mongoose.Schema(
   {
     name: {
+      // Owner & Staff
       type: String,
       required: true,
     },
-    companyNumber: {
-      type: Number,
-      required: true,
-    },
     email: {
+      // Owner & Staff
       type: String,
       required: true,
       unique: true,
     },
     password: {
+      // Staff & Owner
       type: String,
       required: true,
     },
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
     isOwner: {
+      // Owner
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    isAdmin: {
+      // Staff
       type: Boolean,
       required: true,
       default: false,
